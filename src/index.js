@@ -3,26 +3,43 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
-  constructor(props) {
-    super(props);//why we need to pass pass props here?
-    this.state = {
-      value: null,
-    };
-  }
   render() {
     return (
       <button 
         className="square" 
-        onClick={() => this.setState({value: 'X'})}>
-        {this.state.value}
+        onClick={() => this.props.onClick()}
+        //{/*why we need to call function using arrow syntax here*/}
+      >
+        {this.props.value}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props); //why we need to pass 'props' in super?
+    this.state = {
+      squares: Array(9).fill(null),//creates array of 9 elements, each is null
+    };
+  }
+
+  handleClick(i) {
+    const newsquares = this.state.squares.slice();
+    //used slice to create a separate copy otherwise changes made to original one also.
+    newsquares[i]='X';
+    console.log(newsquares, this.state.squares);
+    this.setState({squares: newsquares});
+  }
+
   renderSquare(i) {
-    return <Square value={i} />;
+    return (
+      <Square 
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+      //{/*why we need to call function using arrow syntax here*/}
+      />
+    );
   }
 
   render() {

@@ -24,14 +24,18 @@ class Board extends React.Component {
     super(props); //why we need to pass 'props' in super?
     this.state = {
       squares: Array(9).fill(null),//creates array of 9 elements, each is null
+      xIsNext: true,
     };
   }
 
   handleClick(i) {
     const squares = this.state.squares.slice();
     //used slice to create a separate copy otherwise changes made to original one also.
-    squares[i]='X';
-    this.setState({squares: squares});
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      squares: squares, 
+      xIsNext: !this.state.xIsNext, 
+    });
   }
 
   renderSquare(i) {
@@ -45,7 +49,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = `Next player:  ${this.state.xIsNext ? 'X' : 'O'}`;
 
     return (
       <div>

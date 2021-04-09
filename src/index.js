@@ -2,18 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
-  render() {
-    return (
-      <button 
-        className="square" 
-        onClick={() => this.props.onClick()}
-        //{/*why we need to call function using arrow syntax here*/}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+function Square(props) {
+  return (
+    <button 
+      className="square" 
+      onClick={props.onClick}
+      //{/*
+      // why we don't need to call onClick function using arrow syntax 
+      // and why we don't use parenthesis in onClick, here in function component
+      // like we did in class compnent?
+      // Why using multiline comment gives error here
+      //*/}
+    >
+      {props.value}
+    </button>
+  );
 }
 
 class Board extends React.Component {
@@ -25,11 +28,10 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
-    const newsquares = this.state.squares.slice();
+    const squares = this.state.squares.slice();
     //used slice to create a separate copy otherwise changes made to original one also.
-    newsquares[i]='X';
-    console.log(newsquares, this.state.squares);
-    this.setState({squares: newsquares});
+    squares[i]='X';
+    this.setState({squares: squares});
   }
 
   renderSquare(i) {

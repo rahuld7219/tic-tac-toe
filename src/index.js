@@ -8,12 +8,6 @@ function Square(props)
     <button 
       className="square" 
       onClick={props.onClick}
-      //{/*
-      // why we don't need to call onClick function using arrow syntax 
-      // and why we don't use parenthesis in onClick, here in function component
-      // like we did in class compnent?
-      // Why using multiline comment gives error here?
-      //*/}
     >
       {props.value}
     </button>
@@ -28,7 +22,6 @@ class Board extends React.Component
       <Square 
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
-      //{/*why we need to call function using arrow syntax here*/}
       />
     );
   }
@@ -61,7 +54,7 @@ class Game extends React.Component
 {
   constructor(props)
   {
-    super(props);//why we need to pass 'props' in super?
+    super(props);
     this.state = {
       history: [
         {squares: Array(9).fill(null)}, //creates array of 9 elements, each is null
@@ -77,6 +70,7 @@ class Game extends React.Component
     const current = history[history.length-1];
     const squares = current.squares.slice();
     //used slice to create a separate(deep copy) copy otherwise changes made to original one also.
+
     if(calculateWinner(squares) || squares[i])
     {//returns, if someone has won the game or if a Square is already filled(not null)
       return;
@@ -147,8 +141,9 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// returns null or 'X', or 'O'
 function calculateWinner(squares)//this is not a component(you can also see it by naming convention)
-{// returns null or 'X', or 'O'
+{
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
